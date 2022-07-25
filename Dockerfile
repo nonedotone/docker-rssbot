@@ -4,7 +4,8 @@ FROM ekidd/rust-musl-builder AS builder
 ARG VERSION=6c1e5f1
 
 RUN git clone https://github.com/iovxw/rssbot.git . && \
-    sudo chown -R rust:rust /home/rust && \
+    sudo chown -R rust:rust /home/rust && sudo chown -R rust:rust /opt/rust/rustup && \
+    rustup toolchain install nightly && rustup default nightly && \
     rustup target add x86_64-unknown-linux-musl && \
     git checkout ${VERSION} && cargo build --release
 
